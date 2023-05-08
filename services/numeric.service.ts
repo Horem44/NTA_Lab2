@@ -1,5 +1,5 @@
 export class NumericService {
-  constructor(private primes: number[]){}
+  constructor(private primes: number[]) {}
 
   gcd(x: number, p: number): number {
     let t: number;
@@ -14,7 +14,7 @@ export class NumericService {
   }
 
   trialDivisionMethod(n: number): number | undefined {
-    for (let i = 0; i < this.primes.length; i++){
+    for (let i = 0; i < this.primes.length; i++) {
       if (n % this.primes[i] === 0) {
         return this.primes[i];
       }
@@ -82,17 +82,56 @@ export class NumericService {
     return result;
   }
 
-  createRTable(a: number, n: number, m: number){
+  createRTable(a: number, n: number, m: number) {
     const numberDecomposition = this.numberDecomposition(n);
-    return numberDecomposition.map(element => {
-        const result: number[] = [];
+    return numberDecomposition.map((element) => {
+      const result: number[] = [];
 
-        for(let i = 0; i < element.divisor; i++){
-            const power = n * i / element.divisor;
-            result.push(this.moduloHornerScheme(a, power, m));
-        }
+      for (let i = 0; i < element.divisor; i++) {
+        const power = (n * i) / element.divisor;
+        result.push(this.moduloHornerScheme(a, power, m));
+      }
 
-        return result;
-    })
+      return result;
+    });
+  }
+
+  chineseRemainderTheorem(modulos: number[], remainders: number[]): number {
+    const prod = modulos.reduce((a, b) => a * b);
+    let result = 0;
+
+    for (let i = 0; i < modulos.length; i++) {
+      const p = prod / modulos[i];
+      result += remainders[i] * this.mulInv(p, modulos[i]) * p;
+    }
+
+    return result % prod;
+  }
+
+  private mulInv(a: number, b: number): number {
+    const b0 = b;
+    let x0 = 0;
+    let x1 = 1;
+
+    if (b === 1) {
+      return 1;
+    }
+
+    while (a > 1) {
+      const q = Math.floor(a / b);
+      const amb = a % b;
+      a = b;
+      b = amb;
+
+      const xqx = x1 - q * x0;
+      x1 = x0;
+      x0 = xqx;
+    }
+
+    if (x1 < 0) {
+      x1 += b0;
+    }
+
+    return x1;
   }
 }

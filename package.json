@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc index.ts --outDir ./dist && node ./dist/index.js"
+    "start": "tsc index.ts --outDir ./dist --target esnext --moduleResolution node --module commonjs --esModuleInterop true && node ./dist/index.js"
   },
   "keywords": [],
   "author": "",

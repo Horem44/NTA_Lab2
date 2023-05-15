@@ -5,5 +5,6 @@ import { PrimesService } from "./services/primes.service";
 const primes = new PrimesService();
 primes.primes$.subscribe((primes) => {
   const n = new NumericService(primes);
-  console.log(n.chineseRemainderTheorem([2,3,7], [1,2,6]));
+  const d = new DiscreteLogarithmService(n);
+  console.log(d.silverPoligGayman(3691395420298n, 520940435869n, 7999955915857n));
 });

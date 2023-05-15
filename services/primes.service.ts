@@ -11,12 +11,12 @@ export const PRIMES_URL =
 export class PrimesService {
   private readonly primesAmount = 150000;
 
-  public primes$: Observable<number[]> = from(
+  public primes$: Observable<bigint[]> = from(
     axios<IPrimesResponse>(PRIMES_URL)
   ).pipe(
     take(1),
     map((response) =>
-      Array.from({ length: this.primesAmount }, (_, i) => response.data[i])
+      Array.from({ length: this.primesAmount }, (_, i) => BigInt(response.data[i]))
     ),
     catchError((err: AxiosError) => throwError(err.message))
   );

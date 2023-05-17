@@ -155,8 +155,8 @@ export class NumericService {
     column: number
   ) {
     const alpha = this.mulInv(a, n + 1n);
-    let p_i = factor.divisor * factor.divisor;
-    let p_j = factor.divisor;
+    let p_1 = factor.divisor * factor.divisor;
+    let p_2 = factor.divisor;
     const rTable = this.createRTable(a, n);
 
     let x = this.findInTable(
@@ -166,12 +166,12 @@ export class NumericService {
     )!;
 
     for(let i = 1; i < factor.power; i++){
-        const degree = n / p_i;
+        const degree = n / p_1;
         const a = this.moduloHornerScheme(alpha, x!, n + 1n);
         const temp = this.moduloHornerScheme(b * a, degree, n + 1n);
-        x += p_j * this.findInTable(rTable, column, temp)!;
-        p_j *= factor.divisor;
-        p_i *= factor.divisor;
+        x += p_2 * this.findInTable(rTable, column, temp)!;
+        p_2 *= factor.divisor;
+        p_1 *= factor.divisor;
     }
 
     return x;

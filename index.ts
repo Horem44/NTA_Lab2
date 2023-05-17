@@ -4,7 +4,10 @@ import { PrimesService } from "./services/primes.service";
 
 const primes = new PrimesService();
 primes.primes$.subscribe((primes) => {
-  const n = new NumericService(primes);
-  const d = new DiscreteLogarithmService(n);
-  console.log(d.silverPoligGayman(3691395420298n, 520940435869n, 7999955915857n));
+  const numericService = new NumericService(primes);
+  const discreteLogarithmService = new DiscreteLogarithmService(numericService);
+
+  console.time('silver polig gellman');
+  console.log(discreteLogarithmService.silverPoligGellman(38n, 104n, 179n));
+  console.timeEnd('silver polig gellman');
 });

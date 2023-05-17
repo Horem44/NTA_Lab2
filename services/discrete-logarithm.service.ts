@@ -8,7 +8,7 @@ export class DiscreteLogarithmService {
     return this.brootForce(a, b, n);
   }
 
-  silverPoligGayman(a: bigint, b: bigint, n: bigint) {
+  silverPoligGellman(a: bigint, b: bigint, n: bigint) {
     n = n - 1n;
 
     const modulos = this.numericService
